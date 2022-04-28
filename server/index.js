@@ -30,7 +30,9 @@ app.get('/', (req, res) => {
   app.get('/err',(req,res) => {
       try{
           terror()
-      } catch (err) {rollbar.error(err)}
+      } catch (err) {
+        Rollbar.critical('invalid')
+    }
   })
 
   app.use(rollbar.errorHandler())
