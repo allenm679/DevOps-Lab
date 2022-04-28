@@ -13,6 +13,10 @@ var rollbar = new Rollbar({
 
 // record a generic message and send it to Rollbar
 rollbar.log("Hello world!");
+app.use(rollbar.errorHandler())
+
+app.use(express.json())
+app.use(express.static("public"))
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
@@ -31,11 +35,15 @@ app.get('/', (req, res) => {
       try{
           terror()
       } catch (err) {
-        Rollbar.critical('invalid')
+        rollbar.error('invalid')
+        rollbar.critical('invalid')
+        rollbar.warning('Facebook api unavailable')
+        rollbar.info('User logged in')
+        rollbar.debug('done')
+        
     }
   })
 
-  app.use(rollbar.errorHandler())
 
   const port = process.env.PORT || 4000
 
