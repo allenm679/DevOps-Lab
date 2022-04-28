@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
       } catch (err) {rollbar.error(err)}
   })
 
+  app.use(rollbar.errorHandler())
+
   const port = process.env.PORT || 4000
 
 app.listen(port, () => {
