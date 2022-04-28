@@ -22,6 +22,17 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.css'))
   })
 
+
+  app.get('/', (req,res) => {
+      res.sendFile(path.join(__dirname,'../index.html'))
+  })
+
+  app.get('/err',(req,res) => {
+      try{
+          terror()
+      } catch (err) {rollbar.error(err)}
+  })
+
   const port = process.env.PORT || 4000
 
 app.listen(port, () => {
